@@ -158,9 +158,10 @@ basekit.addField({
       props: {
         supportType: [FieldType.Attachment],
         mode: 'single',
+        placeholder: '请选择附件后再运行',
       },
       validator: {
-        required: true,
+        required: false,
       }
     },
     {
@@ -211,7 +212,7 @@ basekit.addField({
     const att = formItemParams?.attachments?.[0];
     const fmt = formItemParams?.format?.value || 'png';
     const apiUrl: string | undefined = typeof formItemParams?.apiUrl === 'string' && formItemParams.apiUrl ? formItemParams.apiUrl : 'https://ai.duoduolang.com/ai/cos/credentialv1';
-    if (!att?.tmp_url) return { code: FieldCode.Error, msg: 'missing attachment tmp_url' };
+    if (!att?.tmp_url) return { code: FieldCode.Success, data: [] as any };
     try {
       const host = hostOf(att.tmp_url);
       if (host) basekit.addDomainList([host]);
